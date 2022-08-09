@@ -1,22 +1,29 @@
 import React from "react";
-
+import { NavLink } from "react-router-dom";
 const Navbar = () => {
   return (
     <>
       <nav>
         <div className="nav-wrapper bg-success">
-          <a href="#" className="brand-logo ms-5">
-       REACT-APP
-          </a>
+          <NavLink to="/" className="brand-logo ms-5">
+            REACT-APP
+          </NavLink>
+
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
-              <a href="#">product</a>
+              <NavLink to="/" className={({isActive})=> isActive ?  "text-light link_active" : "text-light"}>
+                Products
+              </NavLink>
             </li>
             <li>
-              <a href="#">list</a>
+              <NavLink to="/list"className={({isActive})=> isActive ?  "text-light link_active" : "text-light"}>
+                Lists
+              </NavLink>
             </li>
             <li>
-              <a href="#">extra</a>
+              <NavLink to="/extra" className={({isActive})=> isActive ?  "text-light link_active" : "text-light"}>
+                Extra 
+              </NavLink>
             </li>
           </ul>
         </div>

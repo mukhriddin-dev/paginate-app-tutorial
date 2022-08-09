@@ -5,12 +5,11 @@ const Posts = ({ data, totalPage, num, paginate }) => {
   let dot = [];
 
 
-  console.log(paginate);
   for (let i = 1; i <= Math.ceil(num.length / totalPage); i++) {
     dot.push(i);
   }
 
-  console.log(dot);
+
 
   return (
     <div className="w-75 mx-auto mt-5">
@@ -19,7 +18,7 @@ const Posts = ({ data, totalPage, num, paginate }) => {
           <h4>All posts</h4>
         </li>
         {data.map((item, index) => {
-          return <PostItem item={item} />;
+          return <PostItem key={item.id} item={item} />;
         })}
       </ul>
 
