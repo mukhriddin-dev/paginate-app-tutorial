@@ -9,7 +9,7 @@ const List = ({ loading, paginate, lastData, data, totalPage }) => {
 
 
 
-   const id=useParams();
+   const id = useParams();
 
    console.log(id);
 
@@ -17,11 +17,11 @@ const List = ({ loading, paginate, lastData, data, totalPage }) => {
       <div className='list w-100 p-4 bg-warning'>
 
          {
-            loading ? <Posts paginate={paginate} data={lastData} num={data} totalPage={totalPage} /> : <Loader />
+            (loading) ? <Posts paginate={paginate} data={lastData} num={data} totalPage={totalPage} /> : <Loader />
          }
 
 
-<Outlet/>
+         <Outlet />
 
       </div>
 

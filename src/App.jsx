@@ -7,17 +7,25 @@ import Products from "./components/Products/Products";
 import Setting from "./components/Extra/Setting/Setting";
 import Profile from "./components/Extra/Profil/Profile";
 import ListItem from "./components/List/ListItem";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes, useParams, useLocation, useNavigate } from "react-router-dom";
 import Error from "./components/Error/Error";
+import Login from "./components/Login/Login";
 // react-router-dom v6 , private route
 // useParams  , useNavigate , useLocation
+
 
 const App = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const { pathname } = useLocation()
+
+  console.log(pathname);
 
   const [totalPage] = useState(10);
+  const [auth, setAuth] = useState(false);
+
+
 
   const id = useParams();
 
@@ -40,6 +48,29 @@ const App = () => {
     fetchData();
   }, []);
 
+  const navigate = useNavigate()
+
+  const user = {
+    username: "admin123",
+    password: "123456"
+  }
+
+  const useAuth = (params) => {
+
+    if ((user.username === params.username && user.password === params.password)) {
+        setAuth(true)
+   
+    }else{
+       setAuth(false)
+    }
+
+    return auth ?
+
+      navigate("/") : navigate('/login')
+
+  }
+
+
 
 
   const paginate = (num) => {
@@ -47,9 +78,13 @@ const App = () => {
     setCurrentPage(num);
   };
 
+  console.log(data);
+
   return (
     <>
-      <Navbar />
+
+      {(pathname === "/login") ? "" : <Navbar setAuth={setAuth} useAuth={useAuth}/>}
+
       <main>
         <Routes>
           <Route
@@ -65,6 +100,8 @@ const App = () => {
             }
           />
 
+          <Route path="/login" element={<Login isLogin={auth} login={useAuth} />} />
+
           <Route
             path="/list"
             element={
@@ -76,20 +113,24 @@ const App = () => {
                 totalPage={totalPage}
               />
             }
-          >
-            <Route path="/list/:id" element={<ListItem />} />
+          />
+
+          <Route path="/list/:id" element={<ListItem />} />
 
 
-          </Route>
+
 
           <Route path="/extra" element={<Extra />}>
             <Route path="/extra/setting" element={<Setting />} />
             <Route path="/extra/profile" element={<Profile />} />
           </Route>
+
           <Route path="*" element={<Error />} />
+
         </Routes>
       </main>
-      <Footer />
+      {(pathname === "/login") ? "" : <Footer />}
+
     </>
   );
 };
