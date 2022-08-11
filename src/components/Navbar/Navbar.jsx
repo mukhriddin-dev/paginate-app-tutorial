@@ -32,7 +32,7 @@ const Navbar = ({setAuth,useAuth}) => {
             <li>
               <button className="btn btn-light me-4" onClick={()=>{
                 return(
-                  out('/login')
+                  out('/')
                 )
               }}>
                 log out
